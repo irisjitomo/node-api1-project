@@ -1,12 +1,12 @@
 // implement your API here
 const express = require('express');
-// const cors = requre('cors')
+const cors = require('cors')
 const userData = require('./data/db');
 
 const server = express();
 
 server.use(express.json());
-// server.use(cors());
+server.use(cors())
 
 /////// do CRUD requests here
 
