@@ -18,6 +18,7 @@ server.get('/testing', (req, res) => {
     res.json('testing again')
 })
 
+// GET REQUEST for users
 server.get('/api/users', (req, res) => {
     userData
     .find()
@@ -27,6 +28,38 @@ server.get('/api/users', (req, res) => {
     .catch(err => {
         console.log(err)
     })
+})
+
+// GET REQUEST for certain user :id
+server.get('/api/users/:id', (req, res) => {
+    const id = req.params.id
+
+    userData
+    .findById(id)
+    .then(user => {
+        res.json(user)
+    })
+    .catch(err => {
+        console.log(err)
+    })
+})
+
+// POST REQUEST for adding user
+server.post('/api/users', (req, res) => {
+    const newUser = req.body
+
+    if (!newUser.name || !newUser.bio) {
+        res.status(400).json({ message: 'needs a complete data set'})
+    } else {
+        userData
+        .insert(newUser)
+        .then(user => {
+            res.json(user)
+        })
+        .catch(err => {
+            console.log(err)
+        })
+    }
 })
 
 
