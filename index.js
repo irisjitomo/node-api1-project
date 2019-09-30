@@ -57,9 +57,22 @@ server.post('/api/users', (req, res) => {
             res.json(user)
         })
         .catch(err => {
-            console.log(err)
+            res.status(500).json({ error: "There was an error while saving the user to the database" })
         })
     }
+})
+
+// DELETE REQUEST for deleting a specific id
+server.delete('/api/users/:id', (req, res) => {
+    const id = req.params.id
+    userData
+    .remove(id)
+    .then(user => {
+        res.json(user)
+    })
+    .catch(err => {
+        console.log(err)
+    })
 })
 
 
