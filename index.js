@@ -75,6 +75,21 @@ server.delete('/api/users/:id', (req, res) => {
     })
 })
 
+// PUT REQUEST for updating a specific id
+server.put('/api/users/:id', (req, res) => {
+    const id = req.params.id 
+    const updatedUser = req.body;
+
+    userData
+    .update(id, updatedUser)
+    .then(user => {
+        res.json(user)
+    })
+    .catch(err => {
+        res.json(err)
+    })
+})
+
 
 ////// after CRUD requests
 
