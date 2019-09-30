@@ -1,10 +1,12 @@
 // implement your API here
 const express = require('express');
+// const cors = requre('cors')
 const userData = require('./data/db');
 
 const server = express();
 
 server.use(express.json());
+// server.use(cors());
 
 /////// do CRUD requests here
 
@@ -75,12 +77,13 @@ server.delete('/api/users/:id', (req, res) => {
 		.then(user => {
             if (user) {
                 res.json(user)
-            .catch(() => {
-                res.status(500).json({error: "The user could not be removed"})
-            })
+            
             } else {
                 res.status(404).json({message: "The user with the specified ID does not exist."})
             }
+        })
+        .catch(() => {
+            res.status(500).json({error: "The user could not be removed"})
         })
 });
 
@@ -98,23 +101,14 @@ server.put('/api/users/:id', (req, res) => {
             if (user) {
                 res.json(user)
                 res.status(200)
-            .catch(() => {
-                res.status(500).json({ error: "The user information could not be modified." })
-            })
             } else {
                 res.status(404).json({message: "The user with the specified ID does not exist."})
             }
         })
+         .catch(() => {
+                res.status(500).json({ error: "The user information could not be modified." })
+            })
     }
-
-	// userData
-	// 	.update(id, updatedUser)
-	// 	.then((user) => {
-	// 		res.json(user);
-	// 	})
-	// 	.catch((err) => {
-	// 		res.json(err);
-	// 	});
 });
 
 ////// after CRUD requests
